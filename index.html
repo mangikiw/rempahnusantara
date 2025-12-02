@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Nusantara Spices - Rempah Kualitas Ekspor B2B</title>
+    <!-- Muat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Muat Lucide Icons untuk ikon yang bersih -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Mengatur font dasar dan kustomisasi warna Tailwind */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            /* Definisi Warna Kustom */
+            --color-primary: #556B2F; /* Hijau Zaitun (Olive Green) */
+            --color-secondary: #8B4513; /* Coklat Tanah (Earthy Brown) */
+            --color-accent: #FFD700; /* Emas (Gold) */
+            --color-text-dark: #333333;
+            --color-text-light: #F5F5F5;
+            --color-bg-light: #FFFFFF;
+            --color-bg-dark: #444444;
+        }
+
+        .text-primary { color: var(--color-primary); }
+        .bg-primary { background-color: var(--color-primary); }
+        .border-primary { border-color: var(--color-primary); }
+
+        .text-secondary { color: var(--color-secondary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .border-secondary { border-color: var(--color-secondary); }
+
+        .text-accent { color: var(--color-accent); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-accent { border-color: var(--color-accent); }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-text-dark);
+        }
+
+        /* Styling untuk Hero Section - Gambar Latar Belakang (Placeholder Awal) */
+        .hero-bg {
+            background-image: url('https://placehold.co/1600x900/556B2F/FFFFFF?text=Rempah+Macro+HD');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply; /* Sedikit memburamkan untuk kontras teks */
+            background-color: rgba(0, 0, 0, 0.4);
+            min-height: 80vh; /* Tinggi yang baik untuk layar desktop */
+            transition: background-image 0.5s ease-in-out; /* Transisi untuk gambar dinamis */
+        }
+        @media (max-width: 768px) {
+             .hero-bg {
+                min-height: 60vh;
+            }
+        }
+         .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner mb-4"></div>
+        <p class="text-primary font-semibold">Memuat konten premium...</p>
+    </div>
+
+    <!-- HEADER/HERO SECTION -->
+    <header class="hero-bg flex items-center justify-center p-4">
+        <div class="container mx-auto text-center z-10 p-6 md:p-12 rounded-xl bg-black bg-opacity-40 max-w-4xl shadow-2xl">
+            <!-- Logo Fiktif -->
+            <div class="flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 md:w-10 md:h-10 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2 1.343 2 3 2m-3-12v12m0-12a1 1 0 00-1 1v10a1 1 0 001 1"></path></svg>
+                <h1 id="company-name-hero" class="text-3xl md:text-4xl font-extrabold text-white tracking-widest uppercase">Nusantara Spices</h1>
+            </div>
+
+            <!-- Headline Utama (Dynamic) -->
+            <h2 id="hero-headline" class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                Rempah Kualitas Ekspor, Langsung dari Sumber Terbaik Nusantara
+            </h2>
+            <p id="hero-subheadline" class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+                Mitra B2B terpercaya Anda untuk pengadaan rempah premium yang bersertifikasi, transparan, dan berkelanjutan.
+            </p>
+
+            <!-- CTA Button (Dynamic) -->
+            <a href="#katalog" id="main-cta-button" class="inline-block px-10 py-4 text-lg font-semibold bg-accent text-secondary rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 border-2 border-accent">
+                Dapatkan E-Katalog Produk
+            </a>
+        </div>
+    </header>
+
+    <!-- SECTION: OUR STORY/WHY US (Keunggulan B2B) -->
+    <section id="why-us" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h3 class="text-4xl font-bold text-center mb-4 text-primary">Mengapa Memilih Kami?</h3>
+            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                Fokus kami adalah menjamin kualitas, keamanan, dan keberlanjutan pasokan untuk kebutuhan bisnis Anda.
+            </p>
+
+            <!-- Grid Keunggulan 3 Kolom (Dynamic Content) -->
+            <div id="key-features-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Data statis ini akan dihapus/ditimpa oleh data dinamis dari Firestore -->
+            </div>
+             <!-- Pesan jika tidak ada data -->
+             <p id="no-features-message" class="text-center text-gray-500 italic mt-8 hidden">Data Keunggulan belum tersedia.</p>
+        </div>
+    </section>
+
+    <!-- SECTION: FEATURED PRODUCTS -->
+    <section id="produk" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h3 class="text-4xl font-bold text-center mb-4 text-primary">Produk Unggulan Pilihan</h3>
+            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                Lihat rempah-rempah yang paling dicari oleh klien ekspor global kami.
+            </p>
+
+            <!-- Grid Produk 3 Kolom (Dynamic Content) -->
+            <div id="featured-products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Data statis ini akan dihapus/ditimpa oleh data dinamis dari Firestore -->
+            </div>
+             <!-- Pesan jika tidak ada data -->
+             <p id="no-products-message" class="text-center text-gray-500 italic mt-8 hidden">Data Produk belum tersedia.</p>
+
+            <div class="text-center mt-12">
+                <a href="#kontak" class="inline-block px-8 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-secondary transition duration-300">
+                    Lihat Semua Produk
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: TESTIMONIALS/PARTNERS (Kredibilitas) -->
+    <section id="kredibilitas" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h3 class="text-4xl font-bold text-center mb-4 text-primary">Kredibilitas dan Kemitraan</h3>
+            <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                Dipercaya oleh distributor global dan didukung oleh sertifikasi standar ekspor.
+            </p>
+
+            <!-- Testimonial Fiktif (Dynamic Content - hanya menampilkan 1 testimonial pertama) -->
+            <div id="testimonial-container">
+                <!-- Testimonial dinamis akan masuk di sini -->
+                <div id="no-testimonial-message" class="max-w-4xl mx-auto p-4 rounded-xl text-center text-gray-500 italic hidden">Data Testimonial belum tersedia.</div>
+            </div>
+
+
+            <!-- Logo Partners/Sertifikasi (Dynamic Content) -->
+            <div id="partners-container" class="flex flex-wrap justify-center items-center gap-8 md:gap-16 mt-12 opacity-75">
+                <!-- Logo Partner dinamis akan masuk di sini -->
+            </div>
+             <p id="no-partners-message" class="text-center text-gray-500 italic mt-8 hidden">Data Mitra/Sertifikasi belum tersedia.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="kontak" class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <!-- Kolom 1: Informasi Perusahaan -->
+                <div>
+                    <h5 class="text-xl font-bold mb-4 flex items-center">
+                        <svg class="w-6 h-6 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2 1.343 2 3 2m-3-12v12m0-12a1 1 0 00-1 1v10a1 1 0 001 1"></path></svg>
+                        <span id="company-name-footer">Nusantara Spices</span>
+                    </h5>
+                    <p class="text-gray-300 text-sm">
+                        Menghubungkan Anda dengan jantung rempah Indonesia untuk pengadaan B2B yang unggul.
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Tautan Cepat -->
+                <div>
+                    <h5 class="text-lg font-semibold mb-4 text-accent">Tautan</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#why-us" class="text-gray-300 hover:text-white transition duration-300">Tentang Kami</a></li>
+                        <li><a href="#produk" class="text-gray-300 hover:text-white transition duration-300">Produk Unggulan</a></li>
+                        <li><a href="#katalog" class="text-gray-300 hover:text-white transition duration-300">E-Katalog</a></li>
+                        <li><a href="#kredibilitas" class="text-gray-300 hover:text-white transition duration-300">Kredibilitas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak B2B (Dynamic) -->
+                <div>
+                    <h5 class="text-lg font-semibold mb-4 text-accent">Hubungi Kami</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> <span id="contact-email">sales@nusantaraspices.com</span></li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> <span id="contact-phone">+62 812-3456-7890 (WhatsApp B2B)</span></li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> <span id="office-location">Jakarta, Indonesia (Head Office)</span></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 4: Formulir Kontak Singkat/Langganan -->
+                <div id="katalog">
+                    <h5 class="text-lg font-semibold mb-4 text-accent">Permintaan Katalog</h5>
+                    <form id="contact-form" class="space-y-3">
+                        <input type="email" name="email" placeholder="Email Perusahaan Anda" class="w-full p-2 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent" required>
+                        <textarea name="needs" placeholder="Kebutuhan (ton/bulan)" class="w-full p-2 rounded text-gray-900 h-16 resize-none focus:outline-none focus:ring-2 focus:ring-accent"></textarea>
+                        <button type="submit" id="submit-button" class="w-full bg-accent text-secondary font-semibold p-3 rounded hover:bg-yellow-400 transition duration-300">Kirim Permintaan</button>
+                    </form>
+                    <div id="form-message" class="mt-3 text-center text-sm hidden"></div>
+                </div>
+
+            </div>
+
+            <div class="text-center border-t border-gray-700 mt-8 pt-6">
+                <p class="text-sm text-gray-400" id="copyright-text">&copy; 2024 Nusantara Spices. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Skrip Firebase dan Logika Aplikasi -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, query, orderBy, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // *** AKTIFKAN LOGGING DEBUG UNTUK MELIHAT FIREBASE ERROR ***
+         setLogLevel('Debug');
+
+        // Global Variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let userId = null;
+
+        // --- MAPPING UTAMA DOM ELEMENTS ---
+        const heroBg = document.querySelector('.hero-bg');
+        const heroHeadline = document.getElementById('hero-headline');
+        const heroSubheadline = document.getElementById('hero-subheadline');
+        const mainCtaButton = document.getElementById('main-cta-button');
+        const companyNameHero = document.getElementById('company-name-hero');
+        const companyNameFooter = document.getElementById('company-name-footer');
+        const contactEmail = document.getElementById('contact-email');
+        const contactPhone = document.getElementById('contact-phone');
+        const officeLocation = document.getElementById('office-location');
+        const copyrightText = document.getElementById('copyright-text');
+        const keyFeaturesContainer = document.getElementById('key-features-container');
+        const featuredProductsContainer = document.getElementById('featured-products-container');
+        const testimonialContainer = document.getElementById('testimonial-container');
+        const partnersContainer = document.getElementById('partners-container');
+        const noFeaturesMessage = document.getElementById('no-features-message');
+        const noProductsMessage = document.getElementById('no-products-message');
+        const noTestimonialMessage = document.getElementById('no-testimonial-message');
+        const noPartnersMessage = document.getElementById('no-partners-message');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const formMessage = document.getElementById('form-message');
+        const contactForm = document.getElementById('contact-form');
+        const submitButton = document.getElementById('submit-button');
+
+        // Fungsi utilitas untuk membuat URL placeholder gambar
+        const getPlaceholderUrl = (text, width = 600, height = 400) => 
+             `https://placehold.co/${width}x${height}/8B4513/F5F5F5?text=${encodeURIComponent(text)}`;
+
+        // --- 1. SETUP FIREBASE & AUTH ---
+        async function setupFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Setelah otentikasi selesai, dapatkan userId dan mulai fetch data
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                        fetchData();
+                    } else {
+                        // Ini akan terjadi jika signInAnonymously gagal, tapi kita tetap mencoba fetch
+                        console.warn("User not authenticated, using anonymous or default ID.");
+                        userId = crypto.randomUUID();
+                        fetchData();
+                    }
+                    loadingOverlay.style.display = 'none'; // Sembunyikan loading setelah auth
+                });
+            } catch (error) {
+                console.error("Error setting up Firebase:", error);
+                loadingOverlay.style.display = 'none'; // Sembunyikan loading meskipun ada error
+            }
+        }
+
+        // --- 2. LOGIKA RENDERING DATA DINAMIS ---
+
+        // A. Render Global Settings (Singleton)
+        function renderGlobalSettings(data) {
+            heroHeadline.textContent = data.hero_headline || "Rempah Kualitas Ekspor, Langsung dari Sumber Terbaik Nusantara";
+            heroSubheadline.textContent = data.hero_subheadline || "Mitra B2B terpercaya Anda...";
+            mainCtaButton.textContent = data.main_cta_text || "Dapatkan E-Katalog Produk";
+            companyNameHero.textContent = data.company_name || "Nusantara Spices";
+            companyNameFooter.textContent = data.company_name || "Nusantara Spices";
+            contactEmail.textContent = data.contact_email || "sales@nusantaraspices.com";
+            contactPhone.textContent = data.contact_phone || "+62 812-3456-7890 (WhatsApp B2B)";
+            officeLocation.textContent = data.office_location || "Jakarta, Indonesia (Head Office)";
+            copyrightText.textContent = data.copyright_text || "© 2024 Nusantara Spices. All rights reserved.";
+
+            // Set gambar latar belakang Hero
+            const bgImage = data.hero_background_image || getPlaceholderUrl("Rempah+Macro+HD", 1600, 900);
+            heroBg.style.backgroundImage = `url('${bgImage}')`;
+        }
+
+        // B. Render Key Features (Why Us)
+        function renderKeyFeatures(features) {
+            keyFeaturesContainer.innerHTML = '';
+            noFeaturesMessage.classList.add('hidden');
+            if (features.length === 0) {
+                noFeaturesMessage.classList.remove('hidden');
+                return;
+            }
+
+            features.forEach(feature => {
+                const featureElement = document.createElement('div');
+                // Menggunakan 'users' sebagai default icon jika tidak ada di data
+                const iconName = feature.feature_icon || 'users'; 
+                
+                featureElement.className = 'text-center p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-xl transition duration-300';
+                featureElement.innerHTML = `
+                    <i data-lucide="${iconName}" class="w-12 h-12 text-primary mx-auto mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-3 text-secondary">${feature.feature_title}</h4>
+                    <p class="text-gray-700">${feature.feature_description}</p>
+                `;
+                keyFeaturesContainer.appendChild(featureElement);
+            });
+            // Re-create icons for the new elements
+            lucide.createIcons();
+        }
+
+        // C. Render Featured Products
+        function renderFeaturedProducts(products) {
+            featuredProductsContainer.innerHTML = '';
+            noProductsMessage.classList.add('hidden');
+            if (products.length === 0) {
+                noProductsMessage.classList.remove('hidden');
+                return;
+            }
+             // LOGGING DEBUGGING: Konfirmasi data produk diterima
+            console.log(`[RENDER] Rendering ${products.length} produk unggulan.`);
+
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                const imageSrc = product.product_image || getPlaceholderUrl(product.product_name, 600, 400);
+
+                productElement.className = 'bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl';
+                productElement.innerHTML = `
+                    <img src="${imageSrc}" alt="Foto ${product.product_name}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='${getPlaceholderUrl("Produk+Tidak+Tersedia", 600, 400)}';">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-secondary">${product.product_name}</h4>
+                        <p class="text-gray-600 mb-4 text-sm">${product.scientific_name}</p>
+                        <p class="text-gray-700">${product.short_description}</p>
+                    </div>
+                `;
+                featuredProductsContainer.appendChild(productElement);
+            });
+        }
+
+        // D. Render Testimonials and Partners
+        function renderTestimonialsAndPartners(testimonials) {
+            testimonialContainer.innerHTML = '';
+            partnersContainer.innerHTML = '';
+            noTestimonialMessage.classList.add('hidden');
+            noPartnersMessage.classList.add('hidden');
+
+            const actualTestimonials = testimonials.filter(t => t.testimonial_quote);
+            const actualPartners = testimonials.filter(t => t.partner_logo || t.partner_logo_text);
+
+            // 1. Render Testimonial Pertama (Jika ada)
+            if (actualTestimonials.length > 0) {
+                const testimonial = actualTestimonials[0]; // Ambil yang pertama
+                const testimonialEl = document.createElement('div');
+                testimonialEl.className = 'max-w-4xl mx-auto mb-12 p-8 rounded-xl bg-gray-50 border-l-4 border-accent shadow-md';
+                testimonialEl.innerHTML = `
+                    <i data-lucide="quote" class="w-10 h-10 text-accent mb-4"></i>
+                    <p class="italic text-xl text-gray-700 mb-4">
+                        "${testimonial.testimonial_quote}"
+                    </p>
+                    <p class="font-semibold text-lg text-secondary">
+                        — ${testimonial.client_name}, ${testimonial.client_title_company}
+                    </p>
+                `;
+                testimonialContainer.appendChild(testimonialEl);
+            } else {
+                 noTestimonialMessage.classList.remove('hidden');
+                 testimonialContainer.appendChild(noTestimonialMessage);
+            }
+
+
+            // 2. Render Partners (Semua yang memiliki logo/teks partner)
+            if (actualPartners.length > 0) {
+                actualPartners.forEach(partner => {
+                    const partnerEl = document.createElement('div');
+                    partnerEl.className = 'partner-logo-item'; // Tambahkan kelas untuk target styling
+                    
+                    if (partner.partner_logo) {
+                        // Jika ada gambar logo
+                        partnerEl.innerHTML = `<img src="${partner.partner_logo}" alt="${partner.partner_logo_text || 'Partner Logo'}" class="h-10 w-auto object-contain" onerror="this.onerror=null;this.outerHTML='<span class=\\"text-gray-500 text-lg font-bold\\">${partner.partner_logo_text || 'Partner'}</span>'">`;
+                    } else if (partner.partner_logo_text) {
+                        // Jika hanya ada teks fallback
+                        partnerEl.innerHTML = `<span class="text-gray-500 text-lg font-bold">${partner.partner_logo_text}</span>`;
+                    }
+                    
+                    partnersContainer.appendChild(partnerEl);
+                });
+            } else {
+                noPartnersMessage.classList.remove('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // --- 3. FUNGSI FETCH DATA DARI FIRESTORE ---
+        function fetchData() {
+            if (!db) return;
+
+            const rootPath = (collectionName) => `/artifacts/${appId}/public/data/${collectionName}`;
+
+            // 1. Global Settings (Singleton)
+            onSnapshot(doc(db, rootPath('global_settings'), 'main'), (docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    renderGlobalSettings(docSnapshot.data());
+                } else {
+                    console.log("[DATA FETCH] Global Settings document not found. Using defaults.");
+                    renderGlobalSettings({});
+                }
+            }, (error) => console.error("[ERROR] Global Settings listener failed:", error));
+
+            // 2. Key Features (Koleksi)
+            onSnapshot(collection(db, rootPath('key_features')), (snapshot) => {
+                const features = [];
+                snapshot.forEach(doc => {
+                    features.push(doc.data());
+                });
+                features.sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+                renderKeyFeatures(features);
+            }, (error) => console.error("[ERROR] Key Features listener failed:", error));
+
+            // 3. Featured Products (Koleksi)
+            onSnapshot(collection(db, rootPath('featured_products')), (snapshot) => {
+                const products = [];
+                snapshot.forEach(doc => {
+                    products.push(doc.data());
+                });
+                
+                // *** LOGGING DEBUGGING TAMBAHAN ***
+                console.log(`[DEBUG] Featured Products: Menerima ${products.length} item.`);
+                if (products.length === 0) {
+                    console.warn("[DEBUG] Collection 'featured_products' kosong atau gagal dibaca.");
+                } else {
+                    console.log("[DEBUG] Item pertama yang diterima:", products[0]);
+                }
+                
+                products.sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+                renderFeaturedProducts(products);
+            }, (error) => {
+                // *** PENANGANAN ERROR KRITIS ***
+                console.error("[ERROR KRITIS] Featured Products listener gagal. Penyebab seringkali: Permission Denied (aturan keamanan Firestore).", error);
+                noProductsMessage.textContent = `Gagal memuat produk: ${error.message}. Cek Console untuk error izin.`;
+                noProductsMessage.classList.remove('hidden');
+            });
+
+            // 4. Testimonials & Partners (Koleksi)
+            onSnapshot(collection(db, rootPath('testimonials_partners')), (snapshot) => {
+                const data = [];
+                snapshot.forEach(doc => {
+                    data.push(doc.data());
+                });
+                renderTestimonialsAndPartners(data);
+            }, (error) => console.error("[ERROR] Testimonials & Partners listener failed:", error));
+        }
+
+        // --- 4. LOGIKA FORM SUBMISSION ---
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!db || !userId) {
+                showFormMessage("Error: Database tidak terinisialisasi.", 'text-red-500');
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Mengirim...';
+            
+            const formData = new FormData(contactForm);
+            const submissionData = {
+                email: formData.get('email'),
+                needs: formData.get('needs'),
+                submissionTime: new Date(),
+                userId: userId,
+                status: 'New'
+            };
+
+            try {
+                // Simpan data submission ke koleksi private user
+                const path = `/artifacts/${appId}/users/${userId}/contact_submissions`;
+                await addDoc(collection(db, path), submissionData);
+                
+                showFormMessage("Permintaan berhasil dikirim! Kami akan menghubungi Anda segera.", 'text-green-500');
+                contactForm.reset();
+
+            } catch (error) {
+                console.error("Error saving contact submission:", error);
+                showFormMessage("Gagal mengirim permintaan. Silakan coba lagi.", 'text-red-500');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Kirim Permintaan';
+            }
+        });
+
+        function showFormMessage(message, colorClass) {
+            formMessage.textContent = message;
+            formMessage.className = `mt-3 text-center text-sm ${colorClass}`;
+            formMessage.classList.remove('hidden');
+            setTimeout(() => {
+                 formMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // --- INISIALISASI ---
+        window.onload = setupFirebase;
+        lucide.createIcons(); // Inisialisasi ikon statis
+    </script>
+</body>
+</html>

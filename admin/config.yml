@@ -1,0 +1,34 @@
+backend:
+  name: git-gateway
+  branch: main # Ganti jika branch utama repository Anda bukan 'main'
+
+# Folder tempat media (gambar/foto) akan disimpan di repo
+media_folder: "assets/uploads" 
+
+# URL publik untuk media yang diunggah
+public_folder: "/assets/uploads" 
+
+collections:
+  # 1. Collection untuk Pengaturan Global (Single File)
+  - name: "settings"
+    label: "Pengaturan Website"
+    files:
+      - label: "Data Global (Kontak, Footer)"
+        name: "global-data"
+        file: "src/_data/settings.json" # Lokasi fiktif data akan disimpan
+        fields:
+          - {label: "Email Kontak", name: "email", widget: "string", required: true}
+          - {label: "Nomor WhatsApp", name: "whatsapp", widget: "string", required: true}
+          - {label: "Alamat Kantor", name: "address", widget: "text"}
+
+  # 2. Collection untuk Produk Unggulan (Bisa ditambah/dikurangi item)
+  - name: "products"
+    label: "Produk Unggulan"
+    folder: "src/content/products" # Lokasi fiktif file produk akan disimpan
+    create: true # Memungkinkan pengguna membuat produk baru
+    slug: "{{nama_produk}}" # Format nama file berdasarkan nama produk
+    fields:
+      - {label: "Nama Produk", name: "nama_produk", widget: "string"}
+      - {label: "Deskripsi Singkat", name: "short_desc", widget: "string"}
+      - {label: "Foto Produk", name: "image", widget: "image"}
+      - {label: "Deskripsi Detail", name: "body", widget: "markdown"} # Widget Rich Text Editor

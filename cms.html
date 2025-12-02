@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusantara Spices - CMS Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --color-primary: #556B2F; /* Olive Green */
+            --color-secondary: #8B4513; /* Earthy Brown */
+            --color-accent: #FFD700; /* Gold */
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .bg-accent { background-color: var(--color-accent); }
+        .text-accent { color: var(--color-accent); }
+        .btn-primary { background-color: var(--color-primary); color: white; transition: background-color 0.2s; }
+        .btn-primary:hover { background-color: var(--color-secondary); }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full bg-white bg-opacity-90 flex flex-col justify-center items-center z-50">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-t-4 border-gray-200 border-t-primary"></div>
+        <p class="mt-4 text-primary font-semibold">Memuat Dashboard CMS...</p>
+    </div>
+
+    <div class="min-h-screen flex">
+        <!-- Sidebar (Menu) -->
+        <aside class="w-64 bg-primary text-white p-6 hidden md:block">
+            <h1 class="text-3xl font-bold mb-8 text-accent">CMS NS</h1>
+            <nav class="space-y-4">
+                <a href="#" onclick="showSection('global-settings')" class="flex items-center space-x-2 p-2 rounded hover:bg-white hover:text-primary transition duration-150 active-link">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span>Global Settings</span>
+                </a>
+                <a href="#" onclick="showSection('featured-products')" class="flex items-center space-x-2 p-2 rounded hover:bg-white hover:text-primary transition duration-150">
+                    <i data-lucide="sprout" class="w-5 h-5"></i>
+                    <span>Featured Products</span>
+                </a>
+                 <a href="#" onclick="showSection('key-features')" class="flex items-center space-x-2 p-2 rounded hover:bg-white hover:text-primary transition duration-150">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    <span>Key Features</span>
+                </a>
+                <a href="#" onclick="showSection('submissions')" class="flex items-center space-x-2 p-2 rounded hover:bg-white hover:text-primary transition duration-150">
+                    <i data-lucide="inbox" class="w-5 h-5"></i>
+                    <span>Submissions</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 md:p-12 overflow-y-auto">
+            <h2 id="section-title" class="text-3xl font-bold text-gray-800 mb-8">Global Settings</h2>
+
+            <!-- Success/Error Message Container -->
+            <div id="status-message" class="p-4 rounded-lg mb-6 hidden" role="alert"></div>
+
+            <!-- 1. GLOBAL SETTINGS SECTION -->
+            <section id="global-settings" class="content-section">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-6 border-b pb-3 text-primary">Pengaturan Utama Website</h3>
+                    <form id="global-settings-form" class="space-y-6">
+                        
+                        <div>
+                            <label for="company_name" class="block text-sm font-medium text-gray-700">Nama Perusahaan</label>
+                            <input type="text" id="company_name" name="company_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" maxlength="50">
+                        </div>
+
+                        <div>
+                            <label for="hero_headline" class="block text-sm font-medium text-gray-700">Headline Utama (Hero)</label>
+                            <input type="text" id="hero_headline" name="hero_headline" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" maxlength="120">
+                        </div>
+
+                        <div>
+                            <label for="hero_subheadline" class="block text-sm font-medium text-gray-700">Subheadline Hero</label>
+                            <textarea id="hero_subheadline" name="hero_subheadline" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border"></textarea>
+                        </div>
+                        
+                         <div>
+                            <label for="hero_background_image" class="block text-sm font-medium text-gray-700">Gambar Latar Hero (URL)</label>
+                            <input type="url" id="hero_background_image" name="hero_background_image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                            <p class="mt-1 text-xs text-gray-500">Gunakan URL gambar berkualitas tinggi (Rasio 16:9 disarankan).</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contact_email" class="block text-sm font-medium text-gray-700">Email Kontak B2B</label>
+                                <input type="email" id="contact_email" name="contact_email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                            </div>
+                            <div>
+                                <label for="contact_phone" class="block text-sm font-medium text-gray-700">Nomor Telepon B2B</label>
+                                <input type="text" id="contact_phone" name="contact_phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold" id="save-global-settings">Simpan Perubahan Global</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 2. FEATURED PRODUCTS SECTION -->
+            <section id="featured-products" class="content-section hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-primary">Daftar Produk Unggulan</h3>
+                    <button id="open-product-modal" class="btn-primary flex items-center px-4 py-2 rounded-lg">
+                        <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah Produk Baru
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <!-- Product List Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Produk</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Urutan</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Data produk akan di-render di sini -->
+                            </tbody>
+                        </table>
+                        <p id="no-products-cms" class="text-center text-gray-500 italic py-4 hidden">Belum ada produk unggulan yang ditambahkan.</p>
+                    </div>
+                </div>
+            </section>
+            
+             <!-- 3. KEY FEATURES SECTION -->
+            <section id="key-features" class="content-section hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-primary">Daftar Keunggulan Perusahaan</h3>
+                    <button id="open-feature-modal" class="btn-primary flex items-center px-4 py-2 rounded-lg">
+                        <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah Keunggulan
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <!-- Feature List Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ikon</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Keunggulan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Urutan</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feature-list-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Data keunggulan akan di-render di sini -->
+                            </tbody>
+                        </table>
+                        <p id="no-features-cms" class="text-center text-gray-500 italic py-4 hidden">Belum ada keunggulan yang ditambahkan.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. SUBMISSIONS SECTION -->
+            <section id="submissions" class="content-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-6 border-b pb-3 text-primary">Permintaan Katalog Masuk</h3>
+                    
+                    <!-- Submissions Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email Klien</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kebutuhan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissions-list-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Data submissions akan di-render di sini -->
+                            </tbody>
+                        </table>
+                        <p id="no-submissions-cms" class="text-center text-gray-500 italic py-4 hidden">Belum ada permintaan katalog yang masuk.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL - PRODUCT (Reusable for Add/Edit) -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-lg w-full">
+            <h3 id="product-modal-title" class="text-2xl font-bold mb-4 text-primary">Tambah Produk Baru</h3>
+            <form id="product-form" class="space-y-4">
+                <input type="hidden" id="product-id" name="id">
+                
+                <div>
+                    <label for="product_name" class="block text-sm font-medium text-gray-700">Nama Produk</label>
+                    <input type="text" id="product_name" name="product_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" required>
+                </div>
+
+                <div>
+                    <label for="scientific_name" class="block text-sm font-medium text-gray-700">Nama Ilmiah</label>
+                    <input type="text" id="scientific_name" name="scientific_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                </div>
+
+                <div>
+                    <label for="short_description" class="block text-sm font-medium text-gray-700">Deskripsi Singkat</label>
+                    <textarea id="short_description" name="short_description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" required></textarea>
+                </div>
+
+                <div>
+                    <label for="product_image" class="block text-sm font-medium text-gray-700">URL Foto Produk</label>
+                    <input type="url" id="product_image" name="product_image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                </div>
+                
+                <div>
+                    <label for="display_order" class="block text-sm font-medium text-gray-700">Urutan Tampil (Angka)</label>
+                    <input type="number" id="display_order" name="display_order" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" value="0">
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" id="close-product-modal" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Batal</button>
+                    <button type="submit" class="btn-primary px-4 py-2 rounded-lg">Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+     <!-- MODAL - FEATURE (Reusable for Add/Edit) -->
+    <div id="feature-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-lg w-full">
+            <h3 id="feature-modal-title" class="text-2xl font-bold mb-4 text-primary">Tambah Keunggulan</h3>
+            <form id="feature-form" class="space-y-4">
+                <input type="hidden" id="feature-id" name="id">
+                
+                <div>
+                    <label for="feature_title" class="block text-sm font-medium text-gray-700">Judul Keunggulan</label>
+                    <input type="text" id="feature_title" name="feature_title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" required>
+                </div>
+
+                <div>
+                    <label for="feature_description" class="block text-sm font-medium text-gray-700">Deskripsi Detail</label>
+                    <textarea id="feature_description" name="feature_description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" required></textarea>
+                </div>
+
+                <div>
+                    <label for="feature_icon" class="block text-sm font-medium text-gray-700">Ikon (Nama Lucide Icon)</label>
+                    <input type="text" id="feature_icon" name="feature_icon" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border">
+                    <p class="mt-1 text-xs text-gray-500">Contoh: `leaf`, `layers`, `users`.</p>
+                </div>
+                
+                <div>
+                    <label for="feature_display_order" class="block text-sm font-medium text-gray-700">Urutan Tampil (Angka)</label>
+                    <input type="number" id="feature_display_order" name="display_order" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 border" value="0">
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" id="close-feature-modal" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Batal</button>
+                    <button type="submit" class="btn-primary px-4 py-2 rounded-lg">Simpan Keunggulan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, setDoc, addDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // setLogLevel('Debug'); // Aktifkan logging debug untuk debugging
+
+        // Global Variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let userId = null;
+
+        // --- DOM Elements ---
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const statusMessage = document.getElementById('status-message');
+        const sectionTitle = document.getElementById('section-title');
+        
+        // Forms & Modals
+        const globalSettingsForm = document.getElementById('global-settings-form');
+        const productModal = document.getElementById('product-modal');
+        const productForm = document.getElementById('product-form');
+        const featureModal = document.getElementById('feature-modal');
+        const featureForm = document.getElementById('feature-form');
+
+        // Table Bodies
+        const productListBody = document.getElementById('product-list-body');
+        const noProductsCms = document.getElementById('no-products-cms');
+        const featureListBody = document.getElementById('feature-list-body');
+        const noFeaturesCms = document.getElementById('no-features-cms');
+        const submissionsListBody = document.getElementById('submissions-list-body');
+        const noSubmissionsCms = document.getElementById('no-submissions-cms');
+
+
+        // --- Utility Functions ---
+
+        function showMessage(message, type = 'success') {
+            const baseClass = "p-4 rounded-lg mb-6";
+            if (type === 'success') {
+                statusMessage.className = `${baseClass} bg-green-100 text-green-800`;
+            } else if (type === 'error') {
+                statusMessage.className = `${baseClass} bg-red-100 text-red-800`;
+            } else {
+                 statusMessage.className = `${baseClass} bg-blue-100 text-blue-800`;
+            }
+            statusMessage.textContent = message;
+            statusMessage.classList.remove('hidden');
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // --- View Switching ---
+        window.showSection = (sectionId) => {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            sectionTitle.textContent = sectionId.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+            
+             document.querySelectorAll('.active-link').forEach(link => link.classList.remove('active-link', 'bg-white', 'text-primary'));
+             document.querySelector(`a[onclick="showSection('${sectionId}')"]`).classList.add('active-link', 'bg-white', 'text-primary');
+
+        };
+
+        // --- Firebase Setup ---
+        async function setupFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        startDataListeners();
+                        console.log("CMS Auth Ready. User ID:", userId);
+                    } else {
+                        console.error("CMS requires authentication.");
+                        showMessage("Autentikasi gagal atau tidak tersedia.", 'error');
+                    }
+                    loadingOverlay.style.display = 'none';
+                });
+            } catch (error) {
+                console.error("Error setting up Firebase:", error);
+                showMessage("Gagal menginisialisasi Firebase.", 'error');
+                loadingOverlay.style.display = 'none';
+            }
+        }
+        
+        const rootPath = (collectionName) => `/artifacts/${appId}/public/data/${collectionName}`;
+
+        // --- 1. GLOBAL SETTINGS LOGIC ---
+
+        function populateGlobalSettingsForm(data) {
+            document.getElementById('company_name').value = data.company_name || '';
+            document.getElementById('hero_headline').value = data.hero_headline || '';
+            document.getElementById('hero_subheadline').value = data.hero_subheadline || '';
+            document.getElementById('hero_background_image').value = data.hero_background_image || '';
+            document.getElementById('contact_email').value = data.contact_email || '';
+            document.getElementById('contact_phone').value = data.contact_phone || '';
+        }
+
+        globalSettingsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const saveButton = document.getElementById('save-global-settings');
+            saveButton.disabled = true;
+            saveButton.textContent = 'Menyimpan...';
+
+            const formData = new FormData(globalSettingsForm);
+            const data = {
+                company_name: formData.get('company_name'),
+                hero_headline: formData.get('hero_headline'),
+                hero_subheadline: formData.get('hero_subheadline'),
+                hero_background_image: formData.get('hero_background_image'),
+                contact_email: formData.get('contact_email'),
+                contact_phone: formData.get('contact_phone'),
+                // Default values yang tidak di-edit di sini, tapi ada di frontend:
+                main_cta_text: "Dapatkan E-Katalog Produk", 
+                office_location: "Jakarta, Indonesia (Head Office)",
+                copyright_text: `© ${new Date().getFullYear()} Nusantara Spices. All rights reserved.`
+            };
+
+            try {
+                await setDoc(doc(db, rootPath('global_settings'), 'main'), data);
+                showMessage("Pengaturan Global berhasil diperbarui.", 'success');
+            } catch (error) {
+                console.error("Error updating global settings:", error);
+                showMessage("Gagal memperbarui Pengaturan Global.", 'error');
+            } finally {
+                saveButton.disabled = false;
+                saveButton.textContent = 'Simpan Perubahan Global';
+            }
+        });
+
+        // --- 2. FEATURED PRODUCTS LOGIC (CRUD) ---
+
+        function renderProducts(products) {
+            productListBody.innerHTML = '';
+            products.sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+
+            if (products.length === 0) {
+                noProductsCms.classList.remove('hidden');
+                return;
+            }
+            noProductsCms.classList.add('hidden');
+
+            products.forEach(product => {
+                const row = productListBody.insertRow();
+                row.className = 'whitespace-nowrap';
+                
+                // Image Column
+                const imgCell = row.insertCell();
+                imgCell.className = 'px-6 py-4';
+                const imgSrc = product.product_image || "https://placehold.co/50x50/8B4513/F5F5F5?text=R";
+                imgCell.innerHTML = `<img src="${imgSrc}" class="h-10 w-10 rounded-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50/8B4513/F5F5F5?text=R'">`;
+
+                // Name Column
+                row.insertCell().innerHTML = `<div class="px-6 py-4 font-semibold">${product.product_name}</div>`;
+                
+                // Order Column
+                row.insertCell().innerHTML = `<div class="px-6 py-4">${product.display_order || 0}</div>`;
+
+                // Actions Column
+                const actionsCell = row.insertCell();
+                actionsCell.className = 'px-6 py-4 text-right space-x-2';
+                actionsCell.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 font-medium" data-id="${product.id}" onclick="editProduct('${product.id}')">Edit</button>
+                    <button class="text-red-600 hover:text-red-900 font-medium" data-id="${product.id}" onclick="deleteProduct('${product.id}')">Hapus</button>
+                `;
+            });
+        }
+
+        window.editProduct = async (id) => {
+            const productDoc = await getDoc(doc(db, rootPath('featured_products'), id));
+            if (productDoc.exists()) {
+                const data = productDoc.data();
+                document.getElementById('product-id').value = id;
+                document.getElementById('product-name').value = data.product_name || '';
+                document.getElementById('scientific_name').value = data.scientific_name || '';
+                document.getElementById('short_description').value = data.short_description || '';
+                document.getElementById('product_image').value = data.product_image || '';
+                document.getElementById('display_order').value = data.display_order || 0;
+                document.getElementById('product-modal-title').textContent = 'Edit Produk: ' + data.product_name;
+                productModal.classList.remove('hidden');
+            } else {
+                showMessage("Produk tidak ditemukan.", 'error');
+            }
+        };
+
+        window.deleteProduct = async (id) => {
+            if (!window.confirm("Apakah Anda yakin ingin menghapus produk ini?")) return;
+            try {
+                await deleteDoc(doc(db, rootPath('featured_products'), id));
+                showMessage("Produk berhasil dihapus.", 'success');
+            } catch (error) {
+                console.error("Error deleting product:", error);
+                showMessage("Gagal menghapus produk.", 'error');
+            }
+        };
+
+        productForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('product-id').value;
+            const formData = new FormData(productForm);
+            
+            const productData = {
+                product_name: formData.get('product_name'),
+                scientific_name: formData.get('scientific_name'),
+                short_description: formData.get('short_description'),
+                product_image: formData.get('product_image'),
+                display_order: parseInt(formData.get('display_order')) || 0,
+            };
+
+            try {
+                if (id) {
+                    await setDoc(doc(db, rootPath('featured_products'), id), productData);
+                    showMessage("Produk berhasil diperbarui.", 'success');
+                } else {
+                    await addDoc(collection(db, rootPath('featured_products')), productData);
+                    showMessage("Produk baru berhasil ditambahkan.", 'success');
+                }
+                productModal.classList.add('hidden');
+            } catch (error) {
+                console.error("Error saving product:", error);
+                showMessage("Gagal menyimpan produk.", 'error');
+            }
+        });
+
+        // Modal Controls
+        document.getElementById('open-product-modal').addEventListener('click', () => {
+            productForm.reset();
+            document.getElementById('product-id').value = '';
+            document.getElementById('product-modal-title').textContent = 'Tambah Produk Baru';
+            productModal.classList.remove('hidden');
+        });
+        document.getElementById('close-product-modal').addEventListener('click', () => {
+            productModal.classList.add('hidden');
+        });
+
+        // --- 3. KEY FEATURES LOGIC (CRUD) ---
+
+        function renderFeatures(features) {
+            featureListBody.innerHTML = '';
+            features.sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+
+            if (features.length === 0) {
+                noFeaturesCms.classList.remove('hidden');
+                return;
+            }
+            noFeaturesCms.classList.add('hidden');
+
+            features.forEach(feature => {
+                const row = featureListBody.insertRow();
+                row.className = 'whitespace-nowrap';
+                
+                // Icon Column
+                const iconCell = row.insertCell();
+                iconCell.className = 'px-6 py-4';
+                const iconName = feature.feature_icon || 'check-circle';
+                iconCell.innerHTML = `<i data-lucide="${iconName}" class="w-6 h-6 text-primary"></i>`;
+
+                // Title Column
+                row.insertCell().innerHTML = `<div class="px-6 py-4 font-semibold">${feature.feature_title}</div>`;
+                
+                // Order Column
+                row.insertCell().innerHTML = `<div class="px-6 py-4">${feature.display_order || 0}</div>`;
+
+                // Actions Column
+                const actionsCell = row.insertCell();
+                actionsCell.className = 'px-6 py-4 text-right space-x-2';
+                actionsCell.innerHTML = `
+                    <button class="text-blue-600 hover:text-blue-900 font-medium" data-id="${feature.id}" onclick="editFeature('${feature.id}')">Edit</button>
+                    <button class="text-red-600 hover:text-red-900 font-medium" data-id="${feature.id}" onclick="deleteFeature('${feature.id}')">Hapus</button>
+                `;
+            });
+            lucide.createIcons();
+        }
+        
+        window.editFeature = async (id) => {
+            const featureDoc = await getDoc(doc(db, rootPath('key_features'), id));
+            if (featureDoc.exists()) {
+                const data = featureDoc.data();
+                document.getElementById('feature-id').value = id;
+                document.getElementById('feature_title').value = data.feature_title || '';
+                document.getElementById('feature_description').value = data.feature_description || '';
+                document.getElementById('feature_icon').value = data.feature_icon || '';
+                document.getElementById('feature_display_order').value = data.display_order || 0;
+                document.getElementById('feature-modal-title').textContent = 'Edit Keunggulan: ' + data.feature_title;
+                featureModal.classList.remove('hidden');
+            } else {
+                showMessage("Keunggulan tidak ditemukan.", 'error');
+            }
+        };
+        
+        window.deleteFeature = async (id) => {
+            if (!window.confirm("Apakah Anda yakin ingin menghapus keunggulan ini?")) return;
+            try {
+                await deleteDoc(doc(db, rootPath('key_features'), id));
+                showMessage("Keunggulan berhasil dihapus.", 'success');
+            } catch (error) {
+                console.error("Error deleting feature:", error);
+                showMessage("Gagal menghapus keunggulan.", 'error');
+            }
+        };
+
+        featureForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('feature-id').value;
+            const formData = new FormData(featureForm);
+            
+            const featureData = {
+                feature_title: formData.get('feature_title'),
+                feature_description: formData.get('feature_description'),
+                feature_icon: formData.get('feature_icon'),
+                display_order: parseInt(formData.get('display_order')) || 0,
+            };
+
+            try {
+                if (id) {
+                    await setDoc(doc(db, rootPath('key_features'), id), featureData);
+                    showMessage("Keunggulan berhasil diperbarui.", 'success');
+                } else {
+                    await addDoc(collection(db, rootPath('key_features')), featureData);
+                    showMessage("Keunggulan baru berhasil ditambahkan.", 'success');
+                }
+                featureModal.classList.add('hidden');
+            } catch (error) {
+                console.error("Error saving feature:", error);
+                showMessage("Gagal menyimpan keunggulan.", 'error');
+            }
+        });
+        
+        // Modal Controls
+        document.getElementById('open-feature-modal').addEventListener('click', () => {
+            featureForm.reset();
+            document.getElementById('feature-id').value = '';
+            document.getElementById('feature-modal-title').textContent = 'Tambah Keunggulan Baru';
+            featureModal.classList.remove('hidden');
+        });
+        document.getElementById('close-feature-modal').addEventListener('click', () => {
+            featureModal.classList.add('hidden');
+        });
+        
+        // --- 4. SUBMISSIONS LOGIC (Read Only) ---
+        function renderSubmissions(submissions) {
+            submissionsListBody.innerHTML = '';
+
+            if (submissions.length === 0) {
+                noSubmissionsCms.classList.remove('hidden');
+                return;
+            }
+            noSubmissionsCms.classList.add('hidden');
+
+            submissions.forEach(submission => {
+                const row = submissionsListBody.insertRow();
+                row.className = 'whitespace-nowrap';
+                
+                // Email
+                row.insertCell().innerHTML = `<div class="px-6 py-4 font-medium">${submission.email}</div>`;
+
+                // Needs
+                row.insertCell().innerHTML = `<div class="px-6 py-4">${submission.needs}</div>`;
+                
+                // Date
+                const date = submission.submissionTime ? new Date(submission.submissionTime.toDate()).toLocaleString() : 'N/A';
+                row.insertCell().innerHTML = `<div class="px-6 py-4 text-sm text-gray-500">${date}</div>`;
+                
+                // Status
+                row.insertCell().innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">${submission.status}</span>`;
+            });
+        }
+
+
+        // --- Start Listeners ---
+        function startDataListeners() {
+            // 1. Global Settings (Singleton)
+            onSnapshot(doc(db, rootPath('global_settings'), 'main'), (docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    populateGlobalSettingsForm(docSnapshot.data());
+                }
+            }, (error) => console.error("Error listener Global Settings:", error));
+            
+            // 2. Featured Products (Collection)
+            onSnapshot(collection(db, rootPath('featured_products')), (snapshot) => {
+                const products = [];
+                snapshot.forEach(doc => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+                renderProducts(products);
+            }, (error) => console.error("Error listener Featured Products:", error));
+            
+            // 3. Key Features (Collection)
+            onSnapshot(collection(db, rootPath('key_features')), (snapshot) => {
+                const features = [];
+                snapshot.forEach(doc => {
+                    features.push({ id: doc.id, ...doc.data() });
+                });
+                renderFeatures(features);
+            }, (error) => console.error("Error listener Key Features:", error));
+
+            // 4. Submissions (Private Collection)
+            if (userId) {
+                const submissionsPath = `/artifacts/${appId}/users/${userId}/contact_submissions`;
+                onSnapshot(collection(db, submissionsPath), (snapshot) => {
+                    const submissions = [];
+                    snapshot.forEach(doc => {
+                        submissions.push({ id: doc.id, ...doc.data() });
+                    });
+                    // Sort by submissionTime descending
+                    submissions.sort((a, b) => b.submissionTime - a.submissionTime);
+                    renderSubmissions(submissions);
+                }, (error) => console.error("Error listener Submissions:", error));
+            }
+        }
+
+        // --- INISIALISASI ---
+        window.onload = () => {
+             setupFirebase();
+             lucide.createIcons();
+        };
+
+    </script>
+</body>
+</html>
