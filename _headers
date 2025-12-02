@@ -1,0 +1,6 @@
+/admin/*
+  Basic-Auth: user:password
+  X-Frame-Options: DENY
+
+/
+  Content-Security-Policy: frame-ancestors 'self' https://app.netlify.com
